@@ -22,7 +22,8 @@ terraform {
 
   backend "s3" {
     bucket = "liorm-portfolio-tfstate"
-    key    = "mywebsite-tfstate/terraform.tfstate"
+    key    = "nodejs-app/terraform.tfstate"
+    dynamodb_table = "terraform-lock-nodejs-app"
     region = "us-east-1"
   }
 }
