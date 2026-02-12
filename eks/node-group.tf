@@ -1,5 +1,5 @@
-resource "aws_iam_role" "liorm-node-group-role" {
-  name = "liorm_node-group-role"
+resource "aws_iam_role" "liorm-nodejs-group-role" {
+  name = "liorm_nodejs-group-role"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -15,29 +15,29 @@ resource "aws_iam_role" "liorm-node-group-role" {
 
 resource "aws_iam_role_policy_attachment" "liorm-eks-csi-ebs-node-policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-  role       = aws_iam_role.liorm-node-group-role.name
+  role       = aws_iam_role.liorm-nodejs-group-role.name
 }
 
 resource "aws_iam_role_policy_attachment" "liorm-eks-worker-node-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.liorm-node-group-role.name
+  role       = aws_iam_role.liorm-nodejs-group-role.name
 }
 
 resource "aws_iam_role_policy_attachment" "liorm-eks-cni-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.liorm-node-group-role.name
+  role       = aws_iam_role.liorm-nodejs-group-role.name
 }
 
 resource "aws_iam_role_policy_attachment" "liorm-ec2-container-registry-read-only" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.liorm-node-group-role.name
+  role       = aws_iam_role.liorm-nodejs-group-role.name
 }
 
 resource "aws_eks_node_group" "node-group" {
   cluster_name    = var.cluster_name
   version         = var.cluster_version
   node_group_name = var.node_group_name
-  node_role_arn   = aws_iam_role.liorm-node-group-role.arn
+  node_role_arn   = aws_iam_role.liorm-nodejs-group-role.arn
 
   subnet_ids = [
     local.public-us-east-1a-id,
@@ -86,7 +86,7 @@ resource "aws_eks_node_group" "node-group" {
 }
 
 resource "aws_launch_template" "naming-nodes" {
-  name = "liorm-webapp"
+  name = var.node_name
   
   vpc_security_group_ids = [
     aws_security_group.eks_node_sg.id,
