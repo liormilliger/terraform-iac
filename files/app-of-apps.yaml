@@ -8,12 +8,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/liormilliger/mywebsite-k8s.git
+    repoURL: https://github.com/liormilliger/node-js-sample-k8s.git
     targetRevision: HEAD
     path: "my-app-chart"
   destination: 
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: nodejs-app
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
@@ -21,3 +21,4 @@ spec:
     automated:
       selfHeal: true
       prune: true
+      CreateNamespace: nodejs-app

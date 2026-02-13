@@ -21,7 +21,7 @@ resource "kubernetes_namespace" "argocd" {
   }
 }
 
-data "aws_secretsmanager_secret_version" "config-repo-private-sshkey" {
+data "aws_secretsmanager_secret_version" "k8s-repo-pat" {
   secret_id = var.config-repo-secret-name
 }
 
@@ -40,7 +40,10 @@ resource "helm_release" "argocd" {
             name           = "my-config-repo"
             type           = "git"
             url            = var.config_repo_url
-            sshPrivateKey = replace(jsondecode(data.aws_secretsmanager_secret_version.config-repo-private-sshkey.secret_string)["config-repo-private-sshkey"], "\\n", "\n")
+            username = "liormilliger"
+            password = jsondecode(
+              data.aws_secretsmanager_secret_version.k8s-repo-pat.secret_string
+            )["K8S_REPO_PAT"]
           }
         }
       }

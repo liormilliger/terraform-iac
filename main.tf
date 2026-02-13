@@ -29,9 +29,8 @@ module "eks" {
 
 module "argocd" {
   source                 = "./argocd"
-  config_repo_url         = "git@github.com:liormilliger/mywebsite-k8s.git"
-  config-repo-secret-name = "config-repo-private-sshkey"
-
+  config_repo_url         = "https://github.com/liormilliger/node-js-sample-k8s.git"
+  config-repo-secret-name = "k8s-repo-pat"
   
   providers = {
     kubernetes = kubernetes.eks
