@@ -35,6 +35,9 @@ Ensure an S3 bucket is created in your account to store the `.tfstate` files sec
 ### 3. Create ECR Repository
 Create an Amazon Elastic Container Registry (ECR) to host the application Docker images.
 
+### 4. Fill the mock-terraform.tfvars
+Fill in the missing details according to instruction and change the file name to terraform.tfvars
+
 ---
 
 ## Deployment Instructions
