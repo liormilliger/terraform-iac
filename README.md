@@ -40,14 +40,21 @@ Create an Amazon Elastic Container Registry (ECR) to host the application Docker
 ## Deployment Instructions
 Deploy the modules sequentially to ensure proper dependency management:
 
-### 1. Provision Infrastructure Modules
+### Initialize terraform
+
+```
+terraform init
+```
+
+### Provision Infrastructure Modules
 ```
 terraform apply --auto-approve --target module.vpc
 terraform apply --auto-approve --target module.eks
 terraform apply --auto-approve --target module.argocd
 ```
+---
 
-## 2. Access ArgoCD
+## Access ArgoCD
 Once the ArgoCD module is deployed, retrieve the initial admin password:
 
 ```
@@ -64,7 +71,9 @@ kubectl port-forward svc/argocd-server -n argocd 8082:443
 
 * **Username**: admin
 
-## 3. Access Monitoring (Grafana)
+---
+
+## Access Monitoring (Grafana)
 After the monitoring stack is synchronized via ArgoCD, port-forward Grafana:
 
 ```
@@ -75,7 +84,9 @@ kubectl port-forward svc/prometheus-stack-grafana 8085:80 -n monitoring
 
 * **Credentials**: admin / prom-operator
 
-## 4. Access the Application
+---
+
+## Access the Application
 Once the deployment is synchronized in ArgoCD, the Node.js application is exposed via an AWS Network Load Balancer (NLB).
 
 ### Retrieve Load Balancer DNS
