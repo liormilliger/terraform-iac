@@ -98,8 +98,8 @@ kubectl get svc nodejs-app -n nodejs-app -o jsonpath='{.status.loadBalancer.ingr
 ### Access the Endpoint
 Open your browser and navigate to the application path:
 
-* **URL**: http://<load-balancer-dns>/my-app
+* **URL**: http://load-balancer-dns/my-app
 
-* **Metrics**: http://<load-balancer-dns>/metrics
+* **Metrics**: http://load-balancer-dns/metrics
 
 Note: It may take a few minutes for the AWS Load Balancer to finish provisioning and for the DNS to propagate. If you cannot reach the URL immediately, check the target group health in the AWS Console.
