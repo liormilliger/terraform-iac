@@ -7,7 +7,7 @@ resource "aws_route_table" "liorm_route_table" {
   }
 
   tags = {
-    Name = "liorm-route-table"
+    Name = "${var.cluster_name}-route-table"
   }
 }
 

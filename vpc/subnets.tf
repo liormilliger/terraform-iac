@@ -10,7 +10,7 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    Name                                      = "liorm-private-subnet-${count.index}"
+    Name                                      = "${var.vpc_name}-private-${count.index}"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.ioio/role/internal-elb"         = "1" 
   }
@@ -25,7 +25,7 @@ resource "aws_subnet" "public_subnets" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    Name                                      = "liorm-public-subnet-${count.index}"
+    Name                                      = "${var.vpc_name}-public--${count.index}"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                  = "1"
   }

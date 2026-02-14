@@ -1,5 +1,5 @@
 resource "aws_iam_role" "liorm-nodejs-group-role" {
-  name = "liorm_nodejs-group-role"
+  name = "${var.cluster_name}-group-role"
 
   assume_role_policy = jsonencode({
     Statement = [{
